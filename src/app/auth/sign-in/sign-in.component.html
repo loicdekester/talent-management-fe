@@ -1,1 +1,23 @@
-<p>sign-in works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input class="form-control" type="email" name="email" id="email" formControlName="email"
+            autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input class="form-control" type="password" name="password" id="password" formControlName="password">
+        </div>
+
+        <button type="submit" class="btn btn-dark" [disabled]="!signInForm.valid">Submit</button>
+
+      </form>
+    </div>
+  </div>
+
+</div>
