@@ -1,41 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ApiService {
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
-  get<T>(url: string, params: HttpParams = new HttpParams()): Observable<T> {
-    return this.http.get<T>(`${environment.api_url}${url}`, {
-      headers: this.headers,
-      params,
-    });
+  private formatErrors(error: any) {
+    return throwError(error.error);
   }
 
-  post<T, D>(url: string, data: D): Observable<T> {
-    return this.http.post<T>(`${environment.api_url}${url}`, JSON.stringify(data), { headers: this.headers });
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+    return this.http.get(`${environment.api_url}${path}`, { params, withCredentials: true })
+      .pipe(catchError(this.formatErrors));
   }
 
-  put<T, D>(url: string, data: D): Observable<T> {
-    return this.http.put<T>(`${environment.api_url}${url}`, JSON.stringify(data), {
-      headers: this.headers,
-    });
+  put(path: string, body: Object = {}): Observable<any> {
+    return this.http.put(
+      `${environment.api_url}${path}`,
+      body,
+      { withCredentials: true }
+    ).pipe(catchError(this.formatErrors));
   }
 
-  delete<T>(url: string): Observable<T> {
-    return this.http.delete<T>(`${environment.api_url}${url}`, {
-      headers: this.headers,
-    });
+  post(path: string, body: Object = {},): Observable<any> {
+    return this.http.post(
+      `${environment.api_url}${path}`,
+      body,
+      { withCredentials: true }
+    ).pipe(catchError(this.formatErrors));
   }
 
-  get headers(): HttpHeaders {
-    const headersConfig = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    };
-
-    return new HttpHeaders(headersConfig);
+  delete(path: string): Observable<any> {
+    return this.http.delete(
+      `${environment.api_url}${path}`,
+      { withCredentials: true }
+    ).pipe(catchError(this.formatErrors));
   }
 }

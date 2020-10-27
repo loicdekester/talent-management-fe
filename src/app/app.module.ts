@@ -14,6 +14,8 @@ import { SignInComponent } from './views/auth/sign-in/sign-in.component';
 import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { HomeComponent } from './views/home/home.component';
+import { ListErrorsComponent } from './components/list-errors/list-errors.component';
+import { ServiceModule } from './services/service.module';
 
 @NgModule({
   declarations: [
@@ -27,12 +29,14 @@ import { HomeComponent } from './views/home/home.component';
     SignInComponent,
     SignUpComponent,
     ProfileComponent,
-    HomeComponent
+    HomeComponent,
+    ListErrorsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

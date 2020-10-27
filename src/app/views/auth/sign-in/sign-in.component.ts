@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../../../services';
+import { Errors } from '../../../models';
 
 @Component({
   selector: 'app-sign-in',
@@ -8,8 +11,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class SignInComponent implements OnInit {
   public signInForm;
+  errors: Errors = { errors: {} };
 
-  constructor() {
+  constructor(private userService: UserService, private router: Router) {
     this.signInForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
@@ -20,7 +24,14 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signInForm.value);
+    this.errors = { errors: {} };
+    const credentials = this.signInForm.value;
+    this.userService.attemptAuth(credentials).subscribe(
+      data => this.router.navigateByUrl(''),
+      err => {
+        this.errors = err;
+      }
+    );
   }
 
 }
