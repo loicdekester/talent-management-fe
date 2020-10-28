@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 
 import { ApiService } from './api.service';
-import { User } from '../models/user.models';
+import { User } from '../models/user.model';
 import { map, distinctUntilChanged, take } from 'rxjs/operators';
 
 
@@ -42,19 +42,6 @@ export class UserService {
     this.currentUserSubject.next(user);
     // Set isAuthenticated to true
     this.isAuthenticatedSubject.next(true);
-  }
-
-  setAuth(): void {
-    this.apiService.get('/users/ping').subscribe(
-      (msg) => {
-        this.isAuthenticatedSubject.next(true);
-        console.log(`end ${msg.message}`)
-      },
-      (err) => {
-        this.isAuthenticatedSubject.next(false);
-      }
-    )
-
   }
 
   getCurrentUser(): User {

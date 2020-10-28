@@ -1,2 +1,3 @@
 export * from './errors.model';
-export * from './user.models';
+export * from './user.model';
+export * from './experience.model';

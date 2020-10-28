@@ -1,1 +1,71 @@
-<p>experience works!</p>
+<div>
+  <div class="row">
+    <div class="col-lg-4">
+      <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label for="jobTitle">Title</label>
+          <input class="form-control" type="text" name="jobTitle" id="jobTitle" formControlName="jobTitle">
+          <div *ngIf="jobTitle && jobTitle.invalid && (jobTitle.dirty || jobTitle.touched)">
+            <small *ngIf="jobTitle && jobTitle.errors && jobTitle.errors.required" class="form-text text-muted">Job
+              title is
+              required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input class="form-control" type="text" name="company" id="company" formControlName="company">
+          <div *ngIf="company && company.invalid && (company.dirty || company.touched)">
+            <small *ngIf="company && company.errors && company.errors.required" class="form-text text-muted">Company
+              name is required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input class="form-control" type="text" name="location" id="location" formControlName="location">
+          <div *ngIf="location && location.invalid && (location.dirty || location.touched)">
+            <small *ngIf="location && location.errors && location.errors.required" class="form-text text-muted">
+              Location is
+              required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="begining">Started</label>
+          <input class="form-control" type="date" name="begining" id="begining" formControlName="begining">
+          <div *ngIf="begining && begining.invalid && (begining.dirty || begining.touched)">
+            <small *ngIf="begining && begining.errors && begining.errors.required" class="form-text text-muted">Start
+              date is required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="end">Ended</label>
+          <input class="form-control" type="date" name="end" id="end" formControlName="end">
+          <div *ngIf="end && end.invalid && (end.dirty || end.touched)">
+            <small *ngIf="end && end.errors && end.errors.required" class="form-text text-muted">End
+              date is required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" name="description" formControlName="description"
+            rows="6"></textarea>
+          <div *ngIf="description && description.invalid && (description.dirty || description.touched)">
+            <small *ngIf="description && description.errors && description.errors.required"
+              class="form-text text-muted">
+              Description is
+              required.</small>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark" [disabled]="!experienceForm.valid">Save</button>
+
+      </form>
+    </div>
+  </div>
+
+</div>

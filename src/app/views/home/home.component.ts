@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  experienceList = ["firstElement"]
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  addExperience() {
+    this.experienceList.push("element");
   }
 
 }
