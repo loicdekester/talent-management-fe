@@ -10,17 +10,16 @@ import { Errors } from '../../../models';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  public signInForm;
+  public signInForm: FormGroup;
   errors: Errors = { errors: {} };
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) { }
+
+  ngOnInit(): void {
     this.signInForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit() {

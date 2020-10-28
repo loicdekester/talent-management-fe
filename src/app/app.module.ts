@@ -16,6 +16,7 @@ import { ProfileComponent } from './views/profile/profile.component';
 import { HomeComponent } from './views/home/home.component';
 import { ListErrorsComponent } from './components/list-errors/list-errors.component';
 import { ServiceModule } from './services/service.module';
+import { NoAuthGuard } from './views/auth/no-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ServiceModule } from './services/service.module';
     ReactiveFormsModule,
     ServiceModule
   ],
-  providers: [],
+  providers: [NoAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

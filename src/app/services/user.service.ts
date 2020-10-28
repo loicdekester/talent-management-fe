@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 
 import { ApiService } from './api.service';
 import { User } from '../models/user.models';
-import { map, distinctUntilChanged } from 'rxjs/operators';
+import { map, distinctUntilChanged, take } from 'rxjs/operators';
 
 
 @Injectable()
@@ -16,6 +16,13 @@ export class UserService {
 
   constructor(private apiService: ApiService) { }
 
+  initUser() {
+    this.apiService.get('/users').subscribe(
+      data => this.setUser(data.user),
+      err => this.purgeAuth()
+    );
+  }
+
   register(credentials: any): Observable<any> {
     return this.apiService.post('/users', { user: credentials });
   }
@@ -24,17 +31,30 @@ export class UserService {
     return this.apiService.post('/users/signin', { user: credentials })
       .pipe(map(
         data => {
-          this.setAuth(data.user);
+          this.setUser(data.user);
           return data;
         }
       ));
   }
 
-  setAuth(user: User) {
+  setUser(user: User) {
     // Set current user data into observable
     this.currentUserSubject.next(user);
     // Set isAuthenticated to true
     this.isAuthenticatedSubject.next(true);
+  }
+
+  setAuth(): void {
+    this.apiService.get('/users/ping').subscribe(
+      (msg) => {
+        this.isAuthenticatedSubject.next(true);
+        console.log(`end ${msg.message}`)
+      },
+      (err) => {
+        this.isAuthenticatedSubject.next(false);
+      }
+    )
+
   }
 
   getCurrentUser(): User {
@@ -44,7 +64,7 @@ export class UserService {
   // Update the user on the server (email, pass, etc)
   update(user: User): Observable<User> {
     return this.apiService
-      .put('/user', { user })
+      .put('/users', { user })
       .pipe(map(data => {
         // Update the currentUser observable
         this.currentUserSubject.next(data.user);
