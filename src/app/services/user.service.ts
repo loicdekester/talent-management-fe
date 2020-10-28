@@ -16,6 +16,10 @@ export class UserService {
 
   constructor(private apiService: ApiService) { }
 
+  register(credentials: any): Observable<any> {
+    return this.apiService.post('/users', { user: credentials });
+  }
+
   attemptAuth(credentials: any): Observable<User> {
     return this.apiService.post('/users/signin', { user: credentials })
       .pipe(map(

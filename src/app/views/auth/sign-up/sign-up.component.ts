@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,8 +10,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
   public signUpForm: FormGroup;
+  isAMatch: boolean = true;
 
-  constructor() {
+  constructor(private router: Router, private userService: UserService) {
   }
 
   get email() { return this.signUpForm.get('email'); }
@@ -25,7 +28,19 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signUpForm.value);
+    if (this.signUpForm.value.password == this.signUpForm.value.passwordBis) {
+      this.isAMatch = true;
+      const credentials = {
+        "email": this.signUpForm.value.email,
+        "password": this.signUpForm.value.password
+      }
+      this.userService.register(credentials).subscribe((message) => {
+        console.log(message);
+        this.router.navigate(['sign-in']);
+      });
+    } else {
+      this.isAMatch = false;
+    }
   }
 
 }
