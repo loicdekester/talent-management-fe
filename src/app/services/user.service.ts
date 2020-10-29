@@ -23,6 +23,10 @@ export class UserService {
           e.begining = new Date(e.begining);
           e.end = new Date(e.end);
         });
+        data.user.educationList.map((e: any) => {
+          e.begining = new Date(e.begining);
+          e.end = new Date(e.end);
+        });
         this.setUser(data.user)
       },
       err => this.purgeAuth()
@@ -38,6 +42,10 @@ export class UserService {
       .pipe(map(
         data => {
           data.user.experiences.map((e: any) => {
+            e.begining = new Date(e.begining);
+            e.end = new Date(e.end);
+          });
+          data.user.educationList.map((e: any) => {
             e.begining = new Date(e.begining);
             e.end = new Date(e.end);
           });
@@ -67,6 +75,10 @@ export class UserService {
           e.begining = new Date(e.begining);
           e.end = new Date(e.end);
         });
+        data.user.educationList.map((e: any) => {
+          e.begining = new Date(e.begining);
+          e.end = new Date(e.end);
+        });
         this.currentUserSubject.next(data.user);
         return data.user;
       }));
@@ -75,6 +87,12 @@ export class UserService {
   deleteExperience(id: number): Observable<any> {
     return this.apiService
       .delete(`/experiences/${id}`)
+      .pipe(map((data) => { console.log(data); return data; }))
+  }
+
+  deleteEducation(id: number): Observable<any> {
+    return this.apiService
+      .delete(`/educations/${id}`)
       .pipe(map((data) => { console.log(data); return data; }))
   }
 

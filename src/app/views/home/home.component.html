@@ -5,5 +5,10 @@
   </div>
   <button type="button" class="btn btn-dark" (click)="addExperience()">Add</button>
   <button type="button" class="btn btn-dark" (click)="updateUserExperiences()">Save</button>
+  <div *ngFor="let e of educationList; let i = index">
+    <app-education [education]="e" (edit)="editEducation($event, i)" (delete)=deleteEducation(i)></app-education>
+  </div>
+  <button type="button" class="btn btn-dark" (click)="addEducation()">Add</button>
+  <button type="button" class="btn btn-dark" (click)="updateUserEducation()">Save</button>
 
 </div>

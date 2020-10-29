@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Experience } from 'src/app/models';
+import { Education, Experience } from 'src/app/models';
 import { UserService } from 'src/app/services'
 
 @Component({
@@ -9,15 +9,23 @@ import { UserService } from 'src/app/services'
 })
 export class HomeComponent implements OnInit {
   experienceList: Array<Experience> = [];
+  educationList: Array<Education> = [];
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.experienceList = this.userService.getCurrentUser().experiences;
+    this.educationList = this.userService.getCurrentUser().educationList;
+    if (this.experienceList.length < 1) {
+      this.addExperience();
+    }
+    if (this.educationList.length < 1) {
+      this.addEducation();
+    }
   }
 
   addExperience() {
-    const newExperience = {
+    const newExperience: Experience = {
       jobTitle: "",
       company: "",
       location: "",
@@ -33,7 +41,7 @@ export class HomeComponent implements OnInit {
   }
 
   deleteExperience(index: number) {
-    const experience: any = this.experienceList.splice(index, 1);
+    const experience = this.experienceList.splice(index, 1);
     if (experience[0].id) {
       this.userService.deleteExperience(experience[0].id).subscribe();
     }
@@ -42,6 +50,35 @@ export class HomeComponent implements OnInit {
   updateUserExperiences() {
     const updatedUser = this.userService.getCurrentUser();
     updatedUser.experiences = this.experienceList;
+    this.userService.update(updatedUser).subscribe(user => {
+      console.log(`${user.firstName} ${user.lastName} updated successfully`);
+    });
+  }
+
+  addEducation() {
+    const newEducation: Education = {
+      school: "",
+      degree: "",
+      begining: undefined,
+      end: undefined,
+    }
+    this.educationList.push(newEducation);
+  }
+
+  editEducation(education: Education, index: number) {
+    this.educationList[index] = education;
+  }
+
+  deleteEducation(index: number) {
+    const education = this.educationList.splice(index, 1);
+    if (education[0].id) {
+      this.userService.deleteEducation(education[0].id).subscribe();
+    }
+  }
+
+  updateUserEducation() {
+    const updatedUser = this.userService.getCurrentUser();
+    updatedUser.educationList = this.educationList;
     this.userService.update(updatedUser).subscribe(user => {
       console.log(`${user.firstName} ${user.lastName} updated successfully`);
     });
