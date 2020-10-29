@@ -18,7 +18,13 @@ export class UserService {
 
   initUser() {
     this.apiService.get('/users').subscribe(
-      data => this.setUser(data.user),
+      data => {
+        data.user.experiences.map((e: any) => {
+          e.begining = new Date(e.begining);
+          e.end = new Date(e.end);
+        });
+        this.setUser(data.user)
+      },
       err => this.purgeAuth()
     );
   }
@@ -31,6 +37,10 @@ export class UserService {
     return this.apiService.post('/users/signin', { user: credentials })
       .pipe(map(
         data => {
+          data.user.experiences.map((e: any) => {
+            e.begining = new Date(e.begining);
+            e.end = new Date(e.end);
+          });
           this.setUser(data.user);
           return data;
         }
@@ -53,10 +63,19 @@ export class UserService {
     return this.apiService
       .put('/users', { user })
       .pipe(map(data => {
-        // Update the currentUser observable
+        data.user.experiences.map((e: any) => {
+          e.begining = new Date(e.begining);
+          e.end = new Date(e.end);
+        });
         this.currentUserSubject.next(data.user);
         return data.user;
       }));
+  }
+
+  deleteExperience(id: number): Observable<any> {
+    return this.apiService
+      .delete(`/experiences/${id}`)
+      .pipe(map((data) => { console.log(data); return data; }))
   }
 
   logout(): Observable<any> {

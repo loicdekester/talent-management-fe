@@ -5,5 +5,5 @@ export interface User {
   firstName: string;
   lastName: string;
   skills: Array<string>;
-  experiences: Array<Experience>
+  experiences: Array<Experience>;
 }

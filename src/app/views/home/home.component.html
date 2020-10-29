@@ -1,8 +1,9 @@
 <div class="container">
   <app-info></app-info>
-  <div *ngFor="let e of experienceList">
-    <app-experience></app-experience>
+  <div *ngFor="let e of experienceList; let i = index">
+    <app-experience [experience]="e" (edit)="editExperience($event, i)" (delete)=deleteExperience(i)></app-experience>
   </div>
   <button type="button" class="btn btn-dark" (click)="addExperience()">Add</button>
+  <button type="button" class="btn btn-dark" (click)="updateUserExperiences()">Save</button>
 
 </div>

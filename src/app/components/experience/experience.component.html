@@ -62,8 +62,10 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-dark" [disabled]="!experienceForm.valid">Save</button>
-
+        <button *ngIf="status=='SAVE'" type="submit" class="btn btn-dark"
+          [disabled]="!experienceForm.valid">Save</button>
+        <button *ngIf="status=='EDIT'" type="button" class="btn btn-dark" (click)="onEditClicked()">Edit</button>
+        <button type="button" class="btn btn-dark" (click)="onDeleteClicked()">Delete</button>
       </form>
     </div>
   </div>
