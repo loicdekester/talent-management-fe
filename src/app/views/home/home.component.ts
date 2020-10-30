@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Education, Experience } from 'src/app/models';
+import { Education, Experience, Language } from 'src/app/models';
 import { UserService } from 'src/app/services'
 
 @Component({
@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services'
 export class HomeComponent implements OnInit {
   experienceList: Array<Experience> = [];
   educationList: Array<Education> = [];
+  languages: Array<Language> = [];
 
   constructor(private userService: UserService) { }
 
@@ -79,6 +80,35 @@ export class HomeComponent implements OnInit {
   updateUserEducation() {
     const updatedUser = this.userService.getCurrentUser();
     updatedUser.educationList = this.educationList;
+    this.userService.update(updatedUser).subscribe(user => {
+      console.log(`${user.firstName} ${user.lastName} updated successfully`);
+    });
+  }
+
+  addLanguage() {
+    const newLanguage: Language = {
+      language: "",
+      speaking: 0,
+      reading: 0,
+      writing: 0,
+    }
+    this.languages.push(newLanguage);
+  }
+
+  editLanguage(language: Language, index: number) {
+    this.languages[index] = language;
+  }
+
+  deletelanguages(index: number) {
+    const language = this.languages.splice(index, 1);
+    if (language[0].id) {
+      this.userService.deletelanguages(language[0].id).subscribe();
+    }
+  }
+
+  updateUserlanguages() {
+    const updatedUser = this.userService.getCurrentUser();
+    updatedUser.languages = this.languages;
     this.userService.update(updatedUser).subscribe(user => {
       console.log(`${user.firstName} ${user.lastName} updated successfully`);
     });

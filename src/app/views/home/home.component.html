@@ -10,5 +10,10 @@
   </div>
   <button type="button" class="btn btn-dark" (click)="addEducation()">Add</button>
   <button type="button" class="btn btn-dark" (click)="updateUserEducation()">Save</button>
+  <div *ngFor="let e of languages; let i = index">
+    <app-language [vernacular]="e" (edit)="editLanguage($event, i)" (delete)=deleteLanguage(i)></app-language>
+  </div>
+  <button type="button" class="btn btn-dark" (click)="addLanguage()">Add</button>
+  <button type="button" class="btn btn-dark" (click)="updateUserLanguage()">Save</button>
 
 </div>

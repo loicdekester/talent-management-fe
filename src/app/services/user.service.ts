@@ -96,6 +96,12 @@ export class UserService {
       .pipe(map((data) => { console.log(data); return data; }))
   }
 
+  deletelanguages(id: number): Observable<any> {
+    return this.apiService
+      .delete(`/languages/${id}`)
+      .pipe(map((data) => { console.log(data); return data; }))
+  }
+
   logout(): Observable<any> {
     this.purgeAuth();
     return this.apiService.get('/users/logout');

@@ -1,1 +1,51 @@
-<p>language works!</p>
+<div>
+  <div class="row">
+    <div class="col-lg-4">
+      <form [formGroup]="educationForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label for="language">Language</label>
+          <input class="form-control" type="text" name="language" id="language" formControlName="language">
+          <div *ngIf="language && language.invalid && (language.dirty || language.touched)">
+            <small *ngIf="language && language.errors && language.errors.required" class="form-text text-muted">Language
+              is
+              required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="speaking">Speaking</label>
+          <input class="form-control" type="number" name="speaking" id="speaking" formControlName="speaking">
+          <div *ngIf="speaking && speaking.invalid && (speaking.dirty || speaking.touched)">
+            <small *ngIf="speaking && speaking.errors && speaking.errors.required" class="form-text text-muted">Speaking
+              level is required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reading">Reading</label>
+          <input class="form-control" type="date" name="reading" id="reading" formControlName="reading">
+          <div *ngIf="reading && reading.invalid && (reading.dirty || reading.touched)">
+            <small *ngIf="reading && reading.errors && reading.errors.required" class="form-text text-muted">Reading
+              level is required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="writing">Writing</label>
+          <input class="form-control" type="date" name="writing" id="writing" formControlName="writing">
+          <div *ngIf="writing && writing.invalid && (writing.dirty || writing.touched)">
+            <small *ngIf="writing && writing.errors && writing.errors.required" class="form-text text-muted">Writing
+              level is required.</small>
+          </div>
+        </div>
+
+        <button *ngIf="status=='SAVE'" type="submit" class="btn btn-dark"
+          [disabled]="!educationForm.valid">Save</button>
+        <button *ngIf="status=='EDIT'" type="button" class="btn btn-dark" (click)="onEditClicked()">Edit</button>
+        <button type="button" class="btn btn-dark" (click)="onDeleteClicked()">Delete</button>
+      </form>
+    </div>
+  </div>
+
+</div>

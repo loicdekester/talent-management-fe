@@ -1,4 +1,4 @@
-import { Education, Experience } from '.';
+import { Education, Experience, Language } from '.';
 
 export interface User {
   email: string;
@@ -6,5 +6,6 @@ export interface User {
   lastName: string;
   skills: Array<string>;
   experiences: Array<Experience>;
-  educationList: Array<Education>
+  educationList: Array<Education>;
+  languages: Array<Language>;
 }
