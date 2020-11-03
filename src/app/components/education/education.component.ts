@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Education, Errors } from 'src/app/models';
+import { Errors } from 'src/app/models';
+import { Education } from 'src/app/models/class';
 import { UserService } from 'src/app/services';
 
 @Component({

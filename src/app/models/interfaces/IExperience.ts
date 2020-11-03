@@ -1,5 +1,5 @@
-export interface Experience {
-  id?: number,
+export interface IExperience {
+  id?: number;
   jobTitle: string;
   company: string;
   location: string;

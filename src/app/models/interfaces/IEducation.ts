@@ -1,5 +1,5 @@
-export interface Education {
-  id?: number,
+export interface IEducation {
+  id?: number;
   school: string;
   degree: string;
   begining?: Date;

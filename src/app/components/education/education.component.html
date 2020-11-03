@@ -1,50 +1,47 @@
 <div>
   <div class="row">
-    <div class="col-lg-4">
-      <form [formGroup]="educationForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="educationForm" (ngSubmit)="onSubmit()">
 
-        <div class="form-group">
-          <label for="school">School</label>
-          <input class="form-control" type="text" name="school" id="school" formControlName="school">
-          <div *ngIf="school && school.invalid && (school.dirty || school.touched)">
-            <small *ngIf="school && school.errors && school.errors.required" class="form-text text-muted">School name is
-              required.</small>
-          </div>
+      <div class="form-group">
+        <label for="school">School</label>
+        <input class="form-control" type="text" name="school" id="school" formControlName="school">
+        <div *ngIf="school && school.invalid && (school.dirty || school.touched)">
+          <small *ngIf="school && school.errors && school.errors.required" class="form-text text-muted">School name is
+            required.</small>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label for="degree">Degree</label>
-          <input class="form-control" type="text" name="degree" id="degree" formControlName="degree">
-          <div *ngIf="degree && degree.invalid && (degree.dirty || degree.touched)">
-            <small *ngIf="degree && degree.errors && degree.errors.required" class="form-text text-muted">Degree
-              name is required.</small>
-          </div>
+      <div class="form-group">
+        <label for="degree">Degree</label>
+        <input class="form-control" type="text" name="degree" id="degree" formControlName="degree">
+        <div *ngIf="degree && degree.invalid && (degree.dirty || degree.touched)">
+          <small *ngIf="degree && degree.errors && degree.errors.required" class="form-text text-muted">Degree
+            name is required.</small>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label for="begining">Started</label>
-          <input class="form-control" type="date" name="begining" id="begining" formControlName="begining">
-          <div *ngIf="begining && begining.invalid && (begining.dirty || begining.touched)">
-            <small *ngIf="begining && begining.errors && begining.errors.required" class="form-text text-muted">Start
-              date is required.</small>
-          </div>
+      <div class="form-group">
+        <label for="begining">Started</label>
+        <input class="form-control" type="date" name="begining" id="begining" formControlName="begining">
+        <div *ngIf="begining && begining.invalid && (begining.dirty || begining.touched)">
+          <small *ngIf="begining && begining.errors && begining.errors.required" class="form-text text-muted">Start
+            date is required.</small>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label for="end">Ended</label>
-          <input class="form-control" type="date" name="end" id="end" formControlName="end">
-          <div *ngIf="end && end.invalid && (end.dirty || end.touched)">
-            <small *ngIf="end && end.errors && end.errors.required" class="form-text text-muted">End
-              date is required.</small>
-          </div>
+      <div class="form-group">
+        <label for="end">Ended</label>
+        <input class="form-control" type="date" name="end" id="end" formControlName="end">
+        <div *ngIf="end && end.invalid && (end.dirty || end.touched)">
+          <small *ngIf="end && end.errors && end.errors.required" class="form-text text-muted">End
+            date is required.</small>
         </div>
+      </div>
 
-        <button *ngIf="status=='SAVE'" type="submit" class="btn btn-dark"
-          [disabled]="!educationForm.valid">Save</button>
-        <button *ngIf="status=='EDIT'" type="button" class="btn btn-dark" (click)="onEditClicked()">Edit</button>
-        <button type="button" class="btn btn-dark" (click)="onDeleteClicked()">Delete</button>
-      </form>
-    </div>
+      <button *ngIf="status=='SAVE'" type="submit" class="btn btn-dark" [disabled]="!educationForm.valid">Save</button>
+      <button *ngIf="status=='EDIT'" type="button" class="btn btn-dark" (click)="onEditClicked()">Edit</button>
+      <button type="button" class="btn btn-dark" (click)="onDeleteClicked()">Delete</button>
+    </form>
   </div>
 
 </div>

@@ -1,1 +1,41 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="row">
+    <h2>General Information</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <app-info [user]="user"></app-info>
+    </div>
+  </div>
+
+  <div class="row justify-content-between">
+    <h2>Work Experience</h2>
+    <button type="button" class="btn btn-dark" (click)="addBlankForm('Experience')">Add</button>
+  </div>
+  <div *ngFor="let e of user.experiences; let i = index">
+    <app-experience [experience]="e" (edit)="editExperience($event, i)" (delete)=deleteExperience(i)>
+    </app-experience>
+  </div>
+
+  <div class="row justify-content-between">
+    <h2>Education</h2>
+    <button type="button" class="btn btn-dark" (click)="addBlankForm('Education')">Add</button>
+  </div>
+  <div *ngFor="let e of user.educationList; let i = index">
+    <div class="row justify-content-center">
+      <app-education [education]="e" (edit)="editEducation($event, i)" (delete)=deleteEducation(i)></app-education>
+    </div>
+  </div>
+  <div class="row justify-content-between">
+    <h2>Languages</h2>
+    <button type="button" class="btn btn-dark" (click)="addBlankForm('Language')">Add</button>
+  </div>
+  <div *ngFor="let e of user.languages; let i = index">
+    <div class="row justify-content-center">
+      <app-language [vernacular]="e" (edit)="editLanguage($event, i)" (delete)=deletelanguages(i)></app-language>
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <button type="button" class="btn btn-dark" (click)="updateUser()">Save</button>
+  </div>
+</div>

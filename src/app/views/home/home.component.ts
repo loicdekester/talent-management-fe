@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Education, Experience, Language } from 'src/app/models';
+import { Education, Experience, Language } from 'src/app/models/class';
 import { UserService } from 'src/app/services'
 
 @Component({
@@ -25,16 +25,24 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  addExperience() {
-    const newExperience: Experience = {
-      jobTitle: "",
-      company: "",
-      location: "",
-      begining: undefined,
-      end: undefined,
-      description: ""
+  addBlankForm(type: string) {
+    switch (type) {
+      case "Experience":
+        this.experienceList.push(new Experience);
+        break;
+      case "Education":
+        this.educationList.push(new Education);
+        break;
+      case "Language":
+        this.languages.push(new Language);
+        break;
+      default:
+        break;
     }
-    this.experienceList.push(newExperience);
+  }
+
+  addExperience() {
+    this.experienceList.push(new Experience);
   }
 
   editExperience(experience: Experience, index: number) {
@@ -106,7 +114,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  updateUserlanguages() {
+  updateUserLanguage() {
     const updatedUser = this.userService.getCurrentUser();
     updatedUser.languages = this.languages;
     this.userService.update(updatedUser).subscribe(user => {

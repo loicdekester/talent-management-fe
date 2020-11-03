@@ -1,6 +1,6 @@
-import { Education, Experience, Language } from '.';
+import { Education, Experience, Language } from '../class';
 
-export interface User {
+export interface IUser {
   email: string;
   firstName: string;
   lastName: string;

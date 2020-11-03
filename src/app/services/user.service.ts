@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 
 import { ApiService } from './api.service';
-import { User } from '../models/user.model';
+import { User } from '../models/class/User';
 import { map, distinctUntilChanged, take } from 'rxjs/operators';
 
 

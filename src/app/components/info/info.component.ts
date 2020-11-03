@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Errors } from 'src/app/models';
+import { User } from 'src/app/models/class';
 import { UserService } from 'src/app/services';
 
 @Component({
@@ -11,6 +12,8 @@ import { UserService } from 'src/app/services';
 })
 export class InfoComponent implements OnInit {
   public infoForm: FormGroup;
+  @Input() user: User;
+
   errors: Errors = { errors: {} };
 
   constructor(private userService: UserService, private router: Router) { }
@@ -20,8 +23,8 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.infoForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required])
+      firstName: new FormControl(this.user.firstName, [Validators.required]),
+      lastName: new FormControl(this.user.lastName, [Validators.required])
     });
   }
 
